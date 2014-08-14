@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "rsmart_toolbox/etl/grm"
+require 'rsmart_toolbox/etl/grm'
 
 class UnitHierarchy
 
@@ -29,17 +29,18 @@ class UnitHierarchy
   def is_valid?
     err_array = []
     if get_roots > 1
-      err_array << ("More than 1 root node.")
+      err_array << ('More than 1 root node.')
     end
     # if get_duplicates > 0
     #   err_array << ("Duplicate units exist.")
     # end
     if get_depth('000001') > 4
-      err_array << ("Hierarchy exceeds 4 levels")
+      err_array << ('Hierarchy exceeds 4 levels')
     end
     if err_array.size > 0
       PP.pp(err_array)
     end
+    err_array
   end
 
   def get_roots
@@ -49,7 +50,7 @@ class UnitHierarchy
         roots += 1
       end
     end
-    return roots
+    roots
   end
 
   def get_duplicates
@@ -59,7 +60,7 @@ class UnitHierarchy
         dups += 1
       end
     end
-    return dups
+    dups
   end
 
   def get_depth(from)
@@ -72,27 +73,27 @@ class UnitHierarchy
         depth = [depth, get_depth(child)].max
       end
     end
-    return depth + 1
+    depth + 1
   end
 
   def get_name(unit_num)
-    name = ""
+    name = ''
     @unit_hash.each_pair do |key, value|
       if key.eql? unit_num
         name.concat value[0]
       end
     end
-    return name
+    name
   end
 
   def get_par(unit_num)
-    par = ""
+    par = ''
     @unit_hash.each_pair do |key, value|
       if key.eql? unit_num
         par.concat value[1]
       end
     end
-    return par
+    par
   end
 
   def get_children(unit_num)
@@ -102,7 +103,7 @@ class UnitHierarchy
         arr << key
       end
     end
-    return arr
+    arr
   end
 
 end
